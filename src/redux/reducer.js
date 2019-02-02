@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
+import { reducer as form } from 'redux-form'
 import history from '../history'
-import auth from '../ducks/auth'
+import authReducer, { moduleName as authModule } from '../ducks/auth'
 
 export default combineReducers({
+    form,
     router: connectRouter(history),
-    auth,
+    [authModule]: authReducer,
 })
