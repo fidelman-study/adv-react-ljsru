@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { isAithorizedSelector } from '../../ducks/auth'
 
@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, isAithorized, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      isAithorized ? <Component {...props} /> : <Redirect to="/auth/sign-in" />
+      isAithorized ? <Component {...props} /> : <h1>Not Authorized</h1>
     }
   />
 )

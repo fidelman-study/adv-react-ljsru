@@ -2,6 +2,8 @@ import { appName } from '../config'
 import { Record, List } from 'immutable'
 import { reset } from 'redux-form'
 import { createSelector } from 'reselect'
+import { put, takeEvery, call } from 'redux-saga/effects'
+import { generateId } from '../services/utils'
 
 /**
  * Constants
@@ -10,6 +12,7 @@ export const moduleName = 'people'
 const prefix = `${appName}/${moduleName}`
 
 export const ADD_PERSON_SUCCESS = `${prefix}/ADD_PERSON_SUCCESS`
+export const ADD_PERSON_REQUEST = `${prefix}/ADD_PERSON_REQUEST`
 
 /**
  * Reducer
@@ -52,14 +55,29 @@ export const peopleSelector = createSelector(
  * Action Creator
  */
 export function addPerson(person) {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_PERSON_SUCCESS,
-      payload: {
-        person: { id: Date.now(), ...person }
-      }
-    })
-
-    dispatch(reset('person'))
+  return {
+    type: ADD_PERSON_REQUEST,
+    payload: { person }
   }
+}
+
+/**
+ * Sagas
+ */
+export function* addPersonSaga(action) {
+  const { person } = action.payload
+  const id = yield call(generateId)
+
+  yield put({
+    type: ADD_PERSON_SUCCESS,
+    payload: {
+      person: { id, ...person }
+    }
+  })
+
+  yield put(reset('person'))
+}
+
+export function* saga() {
+  yield takeEvery(ADD_PERSON_REQUEST, addPersonSaga)
 }

@@ -7,7 +7,7 @@ class AdminPage extends React.Component {
     return (
       <div>
         <h1>Admin Page</h1>
-        <Route path="/auth/people" component={PersonPage} />
+        <Route path="/admin/people" component={PersonPage} />
       </div>
     )
   }

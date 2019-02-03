@@ -12,7 +12,6 @@ class AdminPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Admin Page</h1>
         <PeopleList />
         <NewPersonPage onSubmit={this.handleAddPerson} />
       </div>
