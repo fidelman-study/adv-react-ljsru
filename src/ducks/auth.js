@@ -16,49 +16,51 @@ export const SIGN_UP_SUCCESS = `${prefix}/SIGN_UP_SUCCESS`
  * Reducer
  */
 export const ReducerRecord = Record({
-    user: null,
+  user: null
 })
 
 export default function reducer(state = new ReducerRecord(), action) {
-    const { type, payload } = action
+  const { type, payload } = action
 
-    switch (type) {
-        case SIGN_IN_SUCCESS:
-        case SIGN_UP_SUCCESS:
-            return state.set('user', payload.user)
+  switch (type) {
+    case SIGN_IN_SUCCESS:
+    case SIGN_UP_SUCCESS:
+      return state.set('user', payload.user)
 
-        default:
-            return state
-    }
+    default:
+      return state
+  }
 }
 
 /**
  * Init Logic
  */
 api.onAuthStateChanged((user) => {
-    window.store.dispatch({ type: SIGN_IN_SUCCESS, payload: { user } })
+  window.store.dispatch({ type: SIGN_IN_SUCCESS, payload: { user } })
 })
 
 /**
  * Selectors
  */
-export const userSelector = state => state[moduleName].user
+export const userSelector = (state) => state[moduleName].user
 export const isAithorizedSelector = createSelector(
-    userSelector,
-    user => !!user,
+  userSelector,
+  (user) => !!user
 )
 
 /**
  * Action Creators
  */
 export function signIn(email, password) {
-    return dispatch =>
-        api.signIn(email, password)
-            .then(user => dispatch({ type: SIGN_IN_SUCCESS, payload: { user } }))
+  return (dispatch) =>
+    api
+      .signIn(email, password)
+      .then((user) => dispatch({ type: SIGN_IN_SUCCESS, payload: { user } }))
 }
 
 export function signUp(email, password) {
-    return dispatch =>
-        api.signUp(email, password)
-            .then(user => dispatch({ type: SIGN_UP_SUCCESS, payload: { user } }))
+  return (dispatch) =>
+    api
+      .signUp(email, password)
+      .then((user) => dispatch({ type: SIGN_UP_SUCCESS, payload: { user } }))
 }

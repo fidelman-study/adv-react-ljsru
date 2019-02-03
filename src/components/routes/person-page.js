@@ -5,21 +5,24 @@ import PeopleList from '../people/people-list'
 import { addPerson } from '../../ducks/people'
 
 class AdminPage extends React.Component {
-    handleAddPerson = ({ email, firstName, lastName }) => {
-        this.props.addPerson({ email, firstName, lastName });
-    }
+  handleAddPerson = ({ email, firstName, lastName }) => {
+    this.props.addPerson({ email, firstName, lastName })
+  }
 
-    render() {
-        return (
-            <div>
-                <h1>Admin Page</h1>
-                <PeopleList />
-                <NewPersonPage onSubmit={this.handleAddPerson} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h1>Admin Page</h1>
+        <PeopleList />
+        <NewPersonPage onSubmit={this.handleAddPerson} />
+      </div>
+    )
+  }
 }
 
-export default connect(null, {
+export default connect(
+  null,
+  {
     addPerson
-})(AdminPage)
+  }
+)(AdminPage)

@@ -12,20 +12,26 @@ class App extends Component {
     return (
       <Fragment>
         <div>
-          <NavLink to="/admin" activeStyle={activeStyle}>Admin</NavLink>
+          <NavLink to="/admin" activeStyle={activeStyle}>
+            Admin
+          </NavLink>
         </div>
         <div>
-          <NavLink to="/auth/sign-in" activeStyle={activeStyle}>Sign In</NavLink>
+          <NavLink to="/auth/sign-in" activeStyle={activeStyle}>
+            Sign In
+          </NavLink>
         </div>
         <div>
-          <NavLink to="/auth/sign-up" activeStyle={activeStyle}>Sign Up</NavLink>
+          <NavLink to="/auth/sign-up" activeStyle={activeStyle}>
+            Sign Up
+          </NavLink>
         </div>
         <div>
           <PrivateRoute path="/admin" component={AdminPage} />
           <Route path="/auth" component={AuthPage} />
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
