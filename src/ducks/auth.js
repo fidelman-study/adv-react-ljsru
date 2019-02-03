@@ -89,7 +89,7 @@ export function signUp(email, password) {
 /**
  * Sagas
  */
-export function* signInSaga({ email, password }) {
+export function* signInSaga({ payload: { email, password } }) {
   yield put({ type: SIGN_IN_START })
   try {
     const user = yield call(api.signIn, email, password)
