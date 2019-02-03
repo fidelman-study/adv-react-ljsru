@@ -3,6 +3,7 @@ import { NavLink, Route } from 'react-router-dom'
 
 import AdminPage from './components/routes/admin'
 import AuthPage from './components/routes/auth'
+import PrivateRoute from './components/common/private-route'
 
 class App extends Component {
   render() {
@@ -20,7 +21,7 @@ class App extends Component {
           <NavLink to="/auth/sign-up" activeStyle={activeStyle}>Sign Up</NavLink>
         </div>
         <div>
-          <Route path="/admin" component={AdminPage} />
+          <PrivateRoute path="/admin" component={AdminPage} />
           <Route path="/auth" component={AuthPage} />
         </div>
       </Fragment>
