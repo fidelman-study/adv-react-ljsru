@@ -1,15 +1,17 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import SignInForm from '../auth/sign-in-form'
 import SignUpForm from '../auth/sign-up-form'
+import { signIn, signUp } from '../../ducks/auth'
 
 class AuthPage extends React.Component {
     handleSignIn = ({ email, password }) => {
-        console.log(email, password)
+        this.props.signIn(email, password)
     }
 
     handleSignUp = ({ email, password }) => {
-        console.log(email, password)
+        this.props.signUp(email, password)
     }
 
     render() {
@@ -23,4 +25,7 @@ class AuthPage extends React.Component {
     }
 }
 
-export default AuthPage
+export default connect(null, {
+    signIn,
+    signUp,
+})(AuthPage)
