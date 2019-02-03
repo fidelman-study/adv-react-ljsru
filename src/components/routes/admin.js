@@ -1,23 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import AddPersonForm from '../admin/add-person-form'
-import { addPerson } from '../../ducks/people'
+import { Route } from 'react-router-dom'
+import PersonPage from './person-page'
 
 class AdminPage extends React.Component {
-    handleAddPerson = ({ email, firstName, lastName }) => {
-        this.props.addPerson({ email, firstName, lastName });
-    }
-
     render() {
         return (
             <div>
                 <h1>Admin Page</h1>
-                <AddPersonForm onSubmit={this.handleAddPerson} />
+                <Route path="/auth/people" component={PersonPage} />
             </div>
         )
     }
 }
 
-export default connect(null, {
-    addPerson
-})(AdminPage)
+export default AdminPage

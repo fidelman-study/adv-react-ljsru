@@ -1,6 +1,7 @@
 import { appName } from '../config'
 import { Record, List } from 'immutable'
 import { reset } from 'redux-form'
+import { createSelector } from 'reselect'
 
 /**
  * Constants
@@ -37,6 +38,15 @@ export default function reducer(state = new ReducerState(), action) {
             return state
     }
 }
+
+/**
+ * Selector
+ */
+export const stateSelector = state => state[moduleName]
+export const peopleSelector = createSelector(
+    stateSelector,
+    state => state.entities.valueSeq().toArray(),
+)
 
 /**
  * Action Creator
