@@ -1,5 +1,6 @@
 import { appName } from '../config'
 import { Record } from 'immutable'
+import { createSelector } from 'reselect'
 import api from '../services/api'
 
 /**
@@ -41,6 +42,11 @@ api.onAuthStateChanged((user) => {
 /**
  * Selectors
  */
+export const userSelector = state => state[moduleName].user
+export const isAithorizedSelector = createSelector(
+    userSelector,
+    user => !!user,
+)
 
 /**
  * Action Creators
