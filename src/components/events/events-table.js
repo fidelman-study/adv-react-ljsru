@@ -7,8 +7,9 @@ import {
   loadedSelector,
   fetchAllEvents
 } from '../../ducks/events'
+import EventsTableRow from './events-table-row'
 
-class EventsTable extends React.Component {
+export class EventsTable extends React.Component {
   componentDidMount() {
     this.props.fetchAllEvents()
   }
@@ -25,15 +26,7 @@ class EventsTable extends React.Component {
 
   getRows = () => this.props.events.map(this.getRow)
 
-  getRow = (event) => (
-    <tr key={event.id}>
-      <td>
-        <a href={event.url}>{event.title}</a>
-      </td>
-      <td>{event.where}</td>
-      <td>{event.when}</td>
-    </tr>
-  )
+  getRow = (event) => <EventsTableRow key={event.id} event={event} />
 }
 
 export default connect(
