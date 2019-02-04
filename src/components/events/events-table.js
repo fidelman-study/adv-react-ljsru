@@ -26,7 +26,13 @@ export class EventsTable extends React.Component {
 
   getRows = () => this.props.events.map(this.getRow)
 
-  getRow = (event) => <EventsTableRow key={event.id} event={event} />
+  getRow = (event) => (
+    <EventsTableRow
+      key={event.id}
+      onClick={this.props.selectEvent}
+      event={event}
+    />
+  )
 }
 
 export default connect(

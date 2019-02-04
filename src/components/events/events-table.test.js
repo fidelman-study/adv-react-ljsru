@@ -1,5 +1,5 @@
 import React from 'react'
-import Enzyme, { shallow, render } from 'enzyme'
+import Enzyme, { shallow, render, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { EventsTable } from './events-table'
 import Loader from '../common/loader'
@@ -29,5 +29,22 @@ describe('EventsTable Component', () => {
 
   it('should request events fetching', (done) => {
     shallow(<EventsTable fetchAllEvents={done} events={[]} />)
+  })
+
+  it('should select an event', () => {
+    let selectedId = null
+    const container = mount(
+      <EventsTable
+        fetchAllEvents={() => {}}
+        events={events}
+        selectEvent={(id) => (selectedId = id)}
+      />
+    )
+
+    container
+      .find('.test--events-table__row')
+      .at(0)
+      .simulate('click')
+    expect(selectedId).toEqual(events[0].id)
   })
 })
