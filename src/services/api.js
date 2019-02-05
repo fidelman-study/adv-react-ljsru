@@ -19,6 +19,16 @@ class ApiServices {
       .ref('events')
       .once('value')
       .then((res) => res.val())
+
+  fetchLazyEvents = (id = '') =>
+    this.fb
+      .database()
+      .ref('events')
+      .orderByKey()
+      .limitToFirst(10)
+      .startAt(id)
+      .once('value')
+      .then((data) => data.val())
 }
 
 export default new ApiServices()
