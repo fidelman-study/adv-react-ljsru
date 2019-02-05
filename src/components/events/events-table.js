@@ -5,7 +5,8 @@ import {
   eventsSelector,
   loadingSelector,
   loadedSelector,
-  fetchAllEvents
+  fetchAllEvents,
+  toggleSelectedEvent
 } from '../../ducks/events'
 import EventsTableRow from './events-table-row'
 
@@ -24,7 +25,9 @@ export class EventsTable extends React.Component {
     )
   }
 
-  getRows = () => this.props.events.map(this.getRow)
+  getRows = () => {
+    return this.props.events.map(this.getRow)
+  }
 
   getRow = (event) => (
     <EventsTableRow
@@ -42,6 +45,7 @@ export default connect(
     loaded: loadedSelector(state)
   }),
   {
-    fetchAllEvents
+    fetchAllEvents,
+    selectEvent: toggleSelectedEvent
   }
 )(EventsTable)
