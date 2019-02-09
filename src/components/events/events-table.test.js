@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
 import { EventsTable } from './events-table'
 import Loader from '../common/loader'
 import eventMocks from '../../mocks/conferences'

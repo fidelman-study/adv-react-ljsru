@@ -8,7 +8,9 @@ class ErrorField extends React.Component {
       meta: { error, touched },
       ...rest
     } = this.props
-    const errorText = error && touched && <h4>{error}</h4>
+    const errorText = error && touched && (
+      <h4 style={{ color: 'red' }}>{error}</h4>
+    )
     return (
       <div>
         {label}

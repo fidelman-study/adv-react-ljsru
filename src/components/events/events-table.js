@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Loader from '../common/loader'
 import {
-  eventsSelector,
+  eventListSelector,
   loadingSelector,
   loadedSelector,
   fetchAllEvents,
@@ -40,7 +40,7 @@ export class EventsTable extends React.Component {
 
 export default connect(
   (state) => ({
-    events: eventsSelector(state),
+    events: eventListSelector(state),
     loading: loadingSelector(state),
     loaded: loadedSelector(state)
   }),

@@ -63,7 +63,6 @@ api.onAuthStateChanged((user) => {
  */
 export const userSelector = (state) => state[moduleName].user
 export const loadingSelector = (state) => state[moduleName].loading
-export const errorSelector = (state) => state[moduleName].error
 export const isAithorizedSelector = createSelector(
   userSelector,
   (user) => !!user

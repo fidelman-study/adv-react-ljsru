@@ -3,7 +3,6 @@ import { mount } from 'enzyme'
 import events from '../../mocks/conferences'
 
 import { EventLazyTable } from './virtualized-lazy-table'
-import { fetchLazy } from '../../ducks/events'
 
 const eventList = events.map((event) => ({ ...event, uid: Math.random() }))
 

@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 import { Table, Column } from 'react-virtualized'
 import Loader from '../common/loader'
 import {
-  eventsSelector,
+  eventListSelector,
   loadingSelector,
   loadedSelector,
   fetchAllEvents,
   toggleSelectedEvent
 } from '../../ducks/events'
-import EventsTableRow from './events-table-row'
 import 'react-virtualized/styles.css'
 
 export class EventsTableVirualized extends React.Component {
@@ -30,7 +29,7 @@ export class EventsTableVirualized extends React.Component {
         rowGetter={this.rowGetter}
       >
         <Column dataKey="title" width={200} label="Title" />
-        <Column dataKey="where" width={200} label="Where" />
+        <Column dataKey="where" width={200} label="Place" />
         <Column dataKey="when" width={200} label="When" />
       </Table>
     )
@@ -41,7 +40,7 @@ export class EventsTableVirualized extends React.Component {
 
 export default connect(
   (state) => ({
-    events: eventsSelector(state),
+    events: eventListSelector(state),
     loading: loadingSelector(state),
     loaded: loadedSelector(state)
   }),

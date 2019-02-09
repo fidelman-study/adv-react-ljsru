@@ -20,8 +20,8 @@ class ApiServices {
       .once('value')
       .then((res) => res.val())
 
-  fetchLazyEvents = (id = '') =>
-    this.fb
+  fetchLazyEvents = (id = '') => {
+    return this.fb
       .database()
       .ref('events')
       .orderByKey()
@@ -29,6 +29,38 @@ class ApiServices {
       .startAt(id)
       .once('value')
       .then((data) => data.val())
+  }
+
+  deleteEvent = (id) =>
+    this.fb
+      .database()
+      .ref(`events/${id}`)
+      .remove()
+
+  loadAllPeople = () =>
+    this.fb
+      .database()
+      .ref('people')
+      .once('value')
+      .then((res) => res.val())
+
+  deletePerson = (id) =>
+    this.fb
+      .database()
+      .ref(`people/${id}`)
+      .remove()
+
+  addPerson = (person) =>
+    this.fb
+      .database()
+      .ref('people')
+      .push(person)
+
+  addPersonToEvent = (eventId, peopleIds) =>
+    this.fb
+      .database()
+      .ref(`events/${eventId}/peopleIds`)
+      .set(peopleIds)
 }
 
 export default new ApiServices()

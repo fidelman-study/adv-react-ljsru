@@ -9,7 +9,6 @@ class NewAddPersonForm extends React.Component {
 
     return (
       <div>
-        <h3>Add a Person</h3>
         <form onSubmit={handleSubmit}>
           <Field label="Email:" name="email" component={ErrorField} />
           <Field label="First Name:" name="firstName" component={ErrorField} />

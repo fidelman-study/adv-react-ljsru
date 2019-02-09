@@ -4,6 +4,7 @@ import { NavLink, Route } from 'react-router-dom'
 import AdminPage from './components/routes/admin'
 import AuthPage from './components/routes/auth'
 import PrivateRoute from './components/common/private-route'
+import CustomDragLayer from './components/common/custom-drag-layer'
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
 
     return (
       <Fragment>
+        <CustomDragLayer />
         <div>
           <NavLink to="/admin" activeStyle={activeStyle}>
             Admin

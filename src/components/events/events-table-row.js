@@ -6,7 +6,7 @@ class EventsTableRow extends React.Component {
       event: { id },
       onClick
     } = this.props
-    onClick && onClick(id)
+    onClick(id)
   }
 
   render() {

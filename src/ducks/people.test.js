@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects'
-import { addPersonSaga, addPerson, ADD_PERSON_SUCCESS } from './people'
+import { addPersonSaga, addPerson, ADD_PERSON_START } from './people'
 import { reset } from 'redux-form'
 import { generateId } from '../services/utils'
 
@@ -19,7 +19,7 @@ describe('People Duck', () => {
 
     expect(addPersonProcess.next(id).value).toEqual(
       put({
-        type: ADD_PERSON_SUCCESS,
+        type: ADD_PERSON_START,
         payload: {
           person: { id, ...person }
         }
