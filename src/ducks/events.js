@@ -64,7 +64,6 @@ export default function reducer(state = new ReducerState(), action) {
         .set('entities', fbToEntities(payload, EventRecord))
 
     case FETCH_LAZY_SUCCESS:
-      console.log({ payload })
       return state
         .set('loading', false)
         .mergeIn(['entities'], fbToEntities(payload, EventRecord))
@@ -80,7 +79,7 @@ export default function reducer(state = new ReducerState(), action) {
     case ADD_PERSON_SUCCESS:
       return state.setIn(
         ['entities', payload.eventId, 'peopleIds'],
-        payload.personIds
+        payload.peopleIds
       )
 
     case DELETE_EVENT_REQUEST:

@@ -10,6 +10,8 @@ import {
   take,
   delay
 } from 'redux-saga/effects'
+import { eventChannel } from 'redux-saga'
+import { replace } from 'connected-react-router'
 import api from '../services/api'
 
 /**
@@ -27,6 +29,8 @@ export const SIGN_UP_REQUEST = `${prefix}/SIGN_UP_REQUEST`
 export const SIGN_UP_START = `${prefix}/SIGN_UP_START`
 export const SIGN_UP_SUCCESS = `${prefix}/SIGN_UP_SUCCESS`
 export const SIGN_UP_FAIL = `${prefix}/SIGN_UP_FAIL`
+
+export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`
 
 export const SIGN_IN_LIMIT_REACHED = `${prefix}/SIGN_IN_LIMIT_REACHED`
 
@@ -55,18 +59,13 @@ export default function reducer(state = new ReducerRecord(), action) {
     case SIGN_UP_FAIL:
       return state.set('error', payload.error).set('loading', false)
 
+    case SIGN_OUT_SUCCESS:
+      return state.set('user', null)
+
     default:
       return state
   }
 }
-
-/**
- * Init Logic
- */
-api.onAuthStateChanged((user) => {
-  window.store &&
-    window.store.dispatch({ type: SIGN_IN_SUCCESS, payload: { user } })
-})
 
 /**
  * Selectors
@@ -137,6 +136,33 @@ export function* signUpSaga({ payload: { email, password } }) {
   }
 }
 
+const createAuthChannel = () =>
+  eventChannel((emit) => api.onAuthStateChanged((user) => emit({ user })))
+
+export const watchStatusChangeSaga = function*() {
+  const chan = yield call(createAuthChannel)
+  while (true) {
+    const { user } = yield take(chan)
+
+    if (user) {
+      yield put({
+        type: SIGN_IN_SUCCESS,
+        payload: { user }
+      })
+    } else {
+      yield put({
+        type: SIGN_OUT_SUCCESS,
+        payload: { user }
+      })
+      yield put(replace('/auth/sign-in'))
+    }
+  }
+}
+
 export function* saga() {
-  yield all([signInSaga(), takeEvery(SIGN_UP_REQUEST, signUpSaga)])
+  yield all([
+    signInSaga(),
+    takeEvery(SIGN_UP_REQUEST, signUpSaga),
+    watchStatusChangeSaga()
+  ])
 }
