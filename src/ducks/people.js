@@ -9,7 +9,9 @@ import {
   all,
   delay,
   fork,
-  cancel
+  cancel,
+  cancelled,
+  race
 } from 'redux-saga/effects'
 import { fbToEntities } from '../services/utils'
 import api from '../services/api'
@@ -139,16 +141,32 @@ export function* deletePersonSaga({ payload }) {
 }
 
 export function* syncPeopleWithPolling() {
-  while (true) {
-    yield call(fetchAllSaga)
-    yield delay(20000)
+  let firstTry = true
+
+  try {
+    while (true) {
+      if (!firstTry) throw new Error('network')
+      yield call(fetchAllSaga)
+      yield delay(20000)
+      firstTry = false
+    }
+  } finally {
+    if (yield call(cancelled)) {
+      console.log('cancelled')
+    }
   }
 }
 
 export function* cancellableSyncSaga() {
+  yield race({
+    sync: syncPeopleWithPolling,
+    timeout: delay(5000)
+  })
+  /*
   const syncProcess = yield fork(syncPeopleWithPolling)
   yield delay(5000)
   yield cancel(syncProcess)
+  */
 }
 
 export function* saga() {
