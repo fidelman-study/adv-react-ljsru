@@ -61,6 +61,20 @@ class ApiServices {
       .database()
       .ref(`events/${eventId}/peopleIds`)
       .set(peopleIds)
+
+  peopleSubscribtion = (callback) => {
+    const dataCallback = (snapshot) => callback(snapshot.val())
+    this.fb
+      .database()
+      .ref('people')
+      .on('value', dataCallback)
+
+    return () =>
+      this.fb
+        .database()
+        .ref('people')
+        .off('value', dataCallback)
+  }
 }
 
 export default new ApiServices()
