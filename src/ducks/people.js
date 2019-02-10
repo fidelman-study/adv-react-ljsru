@@ -2,7 +2,15 @@ import { appName } from '../config'
 import { Record, OrderedMap } from 'immutable'
 import { reset } from 'redux-form'
 import { createSelector } from 'reselect'
-import { put, takeEvery, call, all } from 'redux-saga/effects'
+import {
+  put,
+  takeEvery,
+  call,
+  all,
+  delay,
+  fork,
+  cancel
+} from 'redux-saga/effects'
 import { fbToEntities } from '../services/utils'
 import api from '../services/api'
 
@@ -104,12 +112,7 @@ export function* addPersonSaga(action) {
     payload: { ...action.payload.person }
   })
 
-  const { key } = yield call(api.addPerson, action.payload.person)
-
-  yield put({
-    type: ADD_PERSON_SUCCESS,
-    payload: { id: key, ...action.payload.person }
-  })
+  yield call(api.addPerson, action.payload.person)
 
   yield put(reset('person'))
 }
@@ -135,7 +138,21 @@ export function* deletePersonSaga({ payload }) {
   } catch (_) {}
 }
 
+export function* syncPeopleWithPolling() {
+  while (true) {
+    yield call(fetchAllSaga)
+    yield delay(20000)
+  }
+}
+
+export function* cancellableSyncSaga() {
+  const syncProcess = yield fork(syncPeopleWithPolling)
+  yield delay(5000)
+  yield cancel(syncProcess)
+}
+
 export function* saga() {
+  yield fork(cancellableSyncSaga)
   yield all([
     takeEvery(ADD_PERSON_REQUEST, addPersonSaga),
     takeEvery(DELETE_PERSON_REQUEST, deletePersonSaga),
