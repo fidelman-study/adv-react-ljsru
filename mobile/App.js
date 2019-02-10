@@ -3,7 +3,9 @@ import { StyleSheet, View } from 'react-native';
 // import HelloWorld from './components/hello-world'
 // import Auth from './components/auth'
 import { events } from './fixtures'
-import EventList from './components/event-list';
+// import EventList from './components/events/event-list';
+import Event from './components/events/event'
+import EventList from './components/events/event-list';
 
 const eventList = Object.entries(events).map(([id, event]) => ({ id, ...event }))
 
@@ -11,7 +13,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <EventList eventList={eventList} />
+        {/* <Event event={eventList[0]} /> */}
+        <EventList events={eventList}/>
       </View>
     );
   }
