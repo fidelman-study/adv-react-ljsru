@@ -9,6 +9,7 @@
   "dependencies": {
     "email-validator": "^2.0.4",
     "expo": "^32.0.0",
+    "firebase": "^5.8.2",
     "lodash": "^4.17.11",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",

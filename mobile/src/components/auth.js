@@ -10,6 +10,7 @@ export default class Auth extends Component {
   render() {
     const { email, password } = this.props.auth
     console.log(email, password)
+
     return (
       <View>
         <View style={styles.container}>
@@ -28,8 +29,8 @@ export default class Auth extends Component {
     )
   }
 
-  handleEmailChange = (email) => stores.auth.setEmail(email)
-  handlePasswordChange = (password) => stores.auth.setPassword(password)
+  handleEmailChange = (email) => this.props.auth.setEmail(email)
+  handlePasswordChange = (password) => this.props.auth.setPassword(password)
   handleSignIn = () => this.props.onSubmit()
 }
 

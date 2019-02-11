@@ -6,7 +6,6 @@ import {observer, inject} from 'mobx-react'
 @observer
 export default class IsValidEmail extends Component {
   render() {
-    console.log('changed')
     return (
       <View>
         <Text> {this.props.auth.isValidEmail.toString()} </Text>

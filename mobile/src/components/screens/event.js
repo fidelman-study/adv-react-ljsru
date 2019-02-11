@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
+import {inject, observer} from 'mobx-react'
 import Event from '../events/event'
-import { events } from '../../../fixtures'
 
-export default class EventScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: events[navigation.state.params.id].title,
-  })
+@inject('events') @observer
+class EventScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.id
+    })
 
-  render() {
-    return <Event event={events[this.props.navigation.state.params.id]} />
-  }
+    render() {
+        return <Event event = {this.props.events.entities[this.props.navigation.state.params.id]}/>
+    }
 }
+
+export default EventScreen
