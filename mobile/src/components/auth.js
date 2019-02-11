@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, Button, Platform } from 'react-native'
-import {observer} from 'mobx-react'
+import {observer, inject} from 'mobx-react'
 import stores from '../stores'
 import IsValidEmail from './is-valid-email'
 
+@inject('auth')
 @observer
 export default class Auth extends Component {
   render() {
-    const { email, password } = stores.auth
-    console.log({email, password})
+    const { email, password } = this.props.auth
+    console.log(email, password)
     return (
       <View>
         <View style={styles.container}>
