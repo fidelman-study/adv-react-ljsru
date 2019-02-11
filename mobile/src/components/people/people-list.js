@@ -16,11 +16,6 @@ class PeopleList extends React.Component {
     onPersonPress: () => {},
   }
 
-  componentDidMount() {
-    const {people} = this.props
-    if (!people.loaded) people.loadAll()
-  }
-
   render() {
     const {onPersonPress, people} = this.props
     if (people.loading) return <ActivityIndicator size='large' />

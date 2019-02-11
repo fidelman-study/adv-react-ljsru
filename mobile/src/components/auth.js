@@ -31,7 +31,7 @@ export default class Auth extends Component {
 
   handleEmailChange = (email) => this.props.auth.setEmail(email)
   handlePasswordChange = (password) => this.props.auth.setPassword(password)
-  handleSignIn = () => this.props.onSubmit()
+  handleSignIn = () => this.props.auth.signIn()
 }
 
 const styles = {
