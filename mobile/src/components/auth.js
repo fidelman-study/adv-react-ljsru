@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, Button, Platform } from 'react-native'
-import { observable } from 'mobx'
 import {observer} from 'mobx-react'
+import stores from '../stores'
+import IsValidEmail from './is-valid-email'
 
 @observer
 export default class Auth extends Component {
-
-  @observable email = ''
-  @observable password = ''
-
   render() {
-    const { email, password } = this
+    const { email, password } = stores.auth
     console.log({email, password})
     return (
       <View>
@@ -18,6 +15,7 @@ export default class Auth extends Component {
           <Text>Email:</Text>
           <TextInput style={styles.input} value ={email} onChangeText={this.handleEmailChange} />
         </View>
+        <IsValidEmail/>
         <View>
           <Text>Password:</Text>
           <TextInput secureTextEntry value={password} onChangeText={this.handlePasswordChange} />
@@ -29,8 +27,8 @@ export default class Auth extends Component {
     )
   }
 
-  handleEmailChange = (email) => this.email = email
-  handlePasswordChange = (password) => this.password = password
+  handleEmailChange = (email) => stores.auth.setEmail(email)
+  handlePasswordChange = (password) => stores.auth.setPassword(password)
   handleSignIn = () => this.props.onSubmit()
 }
 

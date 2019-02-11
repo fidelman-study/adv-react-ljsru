@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Event from '../events/event'
-import { events } from '../../fixtures'
+import { events } from '../../../fixtures'
 
 export default class EventScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
