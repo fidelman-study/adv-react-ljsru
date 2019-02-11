@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import Event from '../events/event'
 import { events } from '../../fixtures'
 
-const eventList = Object.entries(events).map(([id, event]) => ({ id, ...event }))
-
 export default class EventScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: events[navigation.state.params.id].title,
+  })
+
   render() {
-    return <Event event={eventList[0]} />
+    return <Event event={events[this.props.navigation.state.params.id]} />
   }
 }
