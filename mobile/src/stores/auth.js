@@ -4,12 +4,15 @@ import BasicStore from './basic-store'
 import api from '../services/api'
 
 export default class AuthStore extends BasicStore {
-  @observable email = ''
-  @observable password = ''
+  @observable email = 'asd@asd.cz'
+  @observable password = '123123123'
   @observable user = null
 
   @action setEmail = email => this.email = email
   @action setPassword = password => this.password = password
+  @action setUser = user => {
+    this.user = user
+  }
 
   @computed get isValidEmail() {
     return validate(this.email)
@@ -18,9 +21,6 @@ export default class AuthStore extends BasicStore {
   signIn = () => {
     api
       .signIn(this.email, this.password)
-      .then(action(user => {
-        this.user = user
-        this.getStore('navigation').goTo('lists')
-      }))
+      .then(this.setUser)
   }
 }
