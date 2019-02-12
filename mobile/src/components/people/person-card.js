@@ -5,16 +5,19 @@ import {
   Image,
   StyleSheet,
 } from 'react-native'
+import {observer} from 'mobx-react'
 import Card from '../common/card'
 
+
+@observer
 class PersonCard extends React.Component {
   render() {
-    const { email, firstName, lastName } = this.props.person
+    const { email, firstName, lastName, avatar } = this.props.person
 
     return (
       <Card style={styles.container}>
         <Image
-          source={{ uri: 'https://satyr.io/200x100' }}
+          source={{ uri: avatar || 'https://satyr.io/200x100' }}
           style={styles.avatar}
         />
         <View style={styles.content} >

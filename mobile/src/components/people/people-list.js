@@ -4,21 +4,21 @@ import {
   TouchableOpacity,
   Text,
   SectionList,
-  ActivityIndicator,
   StyleSheet,
 } from 'react-native'
 import PersonCard from './person-card'
 
-@inject('people')
+@inject('people', 'navigation')
 @observer
 class PeopleList extends React.Component {
   static defaultProps = {
     onPersonPress: () => {},
   }
 
+  handlePress = id => () => this.props.navigation.goTo('personPhoto', { id })
+
   render() {
-    const {onPersonPress, people} = this.props
-    if (people.loading) return <ActivityIndicator size='large' />
+    const {people} = this.props
 
     return (
       <SectionList
@@ -28,7 +28,7 @@ class PeopleList extends React.Component {
         )}
         renderItem={({item}) => (
           <TouchableOpacity
-            onPress={onPersonPress.bind(null, item.key)}
+            onPress={this.handlePress(item.key)}
           >
             <PersonCard person={item.person} />
           </TouchableOpacity>

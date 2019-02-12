@@ -4,6 +4,7 @@ import EventScreen from './screens/event'
 import EventListScreen from './screens/event-list'
 import PeopleListScreen from './screens/people-list'
 import EventMap from './screens/event-map'
+import Photo from './screens/person-photo'
 
 const ListNavigator = createBottomTabNavigator({
   events: {
@@ -26,6 +27,9 @@ const StackNavigator = createStackNavigator({
   },
   event: {
     screen: EventScreen,
+  },
+  personPhoto: {
+    screen: Photo,
   },
 })
 

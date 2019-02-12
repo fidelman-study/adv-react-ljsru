@@ -1,4 +1,4 @@
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 import { autorun } from 'mobx'
 import BasicStore from './basic-store'
 
@@ -24,6 +24,15 @@ class NavigationStore extends BasicStore {
 
   goTo = (routeName, params) => this.ref.dispatch(NavigationActions.navigate({
     routeName, params,
+  }))
+
+  goBack = () => this.ref.dispatch(NavigationActions.back())
+
+  reset = routeName => this.ref.dispatch(StackActions.reset({
+    index: 0,
+    actions: [
+      NavigationActions.navigate({ routeName })
+    ]
   }))
 }
 
