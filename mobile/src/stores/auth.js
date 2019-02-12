@@ -4,6 +4,11 @@ import BasicStore from './basic-store'
 import api from '../services/api'
 
 export default class AuthStore extends BasicStore {
+  constructor(...args) {
+    super(...args)
+    api.onAuthStateChange(this.setUser)
+  }
+
   @observable email = 'asd@asd.cz'
   @observable password = '123123123'
   @observable user = null
